@@ -1,0 +1,99 @@
+Back-end fundamentos e stacks
+
+- **Fundamentos da Linguagem e Runtime:**
+    - TypeScript - Tipagem estática, Interfaces, Types, Generics
+    - **Node.js Internals:** Como funciona o Event Loop, Callbacks, Promises, Async/Await e o motor V8.
+    - **Estruturas de Dados:** Arrays, Objetos/Dicionários, Sets, Maps e noções de filas.
+    - 
+- **Arquitetura e Padrões de API:**
+    - Express.js - Roteamento avançado e criação de Middlewares customizados.
+    Design RESTful- Uso semântico dos métodos e status
+    - Arquitetura de Software - separação clara de responsabilidades
+    - Transferência de Dados - Padrão DTO (Data Transfer Object)
+- **Banco de Dados (PostgreSQL) e ORM:**
+    - **Prisma ORM:** Criação de schemas, relacionamentos (1:1, 1:N, N:M) e rodar *Migrations* de forma segura.
+    - **SQL Essencial:** Entender o que o Prisma faz por baixo dos panos (JOINs, agregações, GROUP BY).
+    - **Performance:** Noções básicas de índices (`INDEX`) para acelerar consultas lentas.
+- **Validação e Tratamento de Erros:**
+    - **Zod:** Validação de schemas de entrada (body, params, query) integrada ao TypeScript.
+    - **Tratamento Global de Erros:** Criar um middleware centralizado no Express para capturar exceções, sem nunca vazar o erro cru do banco de dados para o cliente.
+    - **Logging:** Registrar erros no terminal de forma estruturada (usando bibliotecas como Winston ou Pino).
+- **Segurança (Obrigatório para Produção):**
+    - **Autenticação e Autorização:** JWT (JSON Web Tokens), controle de acesso baseado em papéis (RBAC - Admin vs. User).
+    - **Proteção de Sessão:** Cookies HTTP-Only para armazenar tokens de forma segura no frontend.
+    - **Defesas de Rede:** CORS (configuração restrita), Rate Limiting (evitar ataques de força bruta), Helmet (headers de segurança HTTP).
+    - **Criptografia:** Hash de senhas usando Bcrypt ou Argon2 (nunca salvar senhas em texto limpo).
+    - **Mult-Tenant**: Dados não podem vazar de um usuário para ou outro em uma plataforma mult-usuário (aplicativos, saas, redes sociais)
+    - RBAC (Role based access control)
+- **Integrações, Testes e Documentação:**
+    - **Integrações Externas:** Consumo de APIs de terceiros (via `fetch` ou `axios`), disparo de e-mails (AWS SES, Resend) e criação de endpoints para receber Webhooks (ex: callbacks de pagamento).
+    - **Testes Automáticos:** Testes unitários com Jest ou Vitest (mockando banco de dados) e testes de integração de rotas (usando Supertest).
+    - **Documentação:** README.md profissional (como rodar o projeto, variáveis de ambiente) e Swagger/OpenAPI para documentar os endpoints.
+- **Infraestrutura e Deploy:**
+    - **Ambiente Linux:** Navegação via terminal, permissões de arquivos, variáveis de ambiente (`.env`).
+    - **Proxy Reverso e Servidor:** Configuração do Nginx para receber tráfego da porta 80/443 e direcionar para a porta do Node (ex: 3000).
+    - **Gerenciamento de Processos:** PM2 ou noções de criação de contêineres com Docker (Dockerfile básico e Docker Compose para o Postgres).
+- Extras
+    - WebSockets:
+    - Redis(Cache)
+    - Estruturas de Dados Práticas (Filas e Pilhas)
+        - filas (Queues): (ex: BullMQ com Redis)
+        - **Pilhas (Stacks):**para a funcionalidade de "Desfazer última ação”
+    - Segurança e Observabilidade
+        - Logs de Sistema:
+            - gerar logs estruturados (audit trails), alterações, logs de falhas
+    - • Pipelines de CI/CD;
+
+
+### Front-end: Fundamentos e Stacks
+
+**Fundamentos da Web e Runtime no Navegador:**
+
+- **Core Web:** HTML5 semântico (main, section, article, nav) e acessibilidade básica (atributos ARIA, navegação por teclado).
+- **JavaScript/TypeScript:** Manipulação do DOM, delegação de eventos, e Web APIs (LocalStorage, SessionStorage, Intersection Observer).
+- **Node/Browser Event Loop:** Entender como a renderização bloqueia a thread principal e como microtasks (Promises) afetam a performance visual.
+- **TypeScript Front-end:** Tipagem rigorosa de `Props`, retorno de componentes, e interfaces para respostas de APIs (garantindo que o front espelhe os DTOs do back-end).
+
+**Arquitetura de Interface e Componentização (React/Next.js):**
+
+- **React Essencial:** Domínio do ciclo de vida através de Hooks (`useState`, `useEffect`, `useCallback`, `useMemo`, `useRef`).
+- **Padrões de UI:** Separação estrita entre *Smart Components* (lidam com regras, estado, chamadas de API) e *Dumb Components* (apenas recebem dados e renderizam botões, modais, cards).
+- **Roteamento:** Criação de layouts aninhados e proteção de rotas privadas (ex: redirecionar usuários não logados que tentam acessar o dashboard) usando React Router DOM ou o App Router do Next.js.
+
+**Gerenciamento de Estado e Sincronização de Dados:**
+
+- **Server-State (Dados da API):** Uso do **TanStack Query (React Query)** para fazer cache de requisições, evitar chamadas duplicadas ao carregar tabelas de torneios, e gerenciar estados de `loading`, `error` e `success` sem encher o código de `useStates`.
+- **Client-State (Dados Locais):** Context API para dados imutáveis (tema, informações do usuário autenticado) e **Zustand** para estados globais complexos que mudam rápido (ex: carrinho de compras, filtros de busca ativos).
+
+**Formulários, Validação e Tratamento de Erros:**
+
+- **React Hook Form:** Gerenciamento de formulários complexos (como cadastro de times ou upload de replays) sem causar re-renderizações desnecessárias a cada tecla digitada.
+- **Zod no Front:** Compartilhar os mesmos schemas de validação usados no back-end para mostrar mensagens de erro ao usuário antes mesmo do *submit*.
+- **Error Boundaries e Interceptors:** Criar limites de erro no React para impedir que o aplicativo inteiro quebre (tela branca) se um componente falhar. Configurar interceptores no Axios para tratar automaticamente erros 401 (token expirado) e deslogar o usuário de forma silenciosa.
+
+**Estilização, UI e Experiência do Usuário (UX):**
+
+- **CSS Utilitário:** Domínio do **Tailwind CSS** para construir layouts responsivos (mobile-first), grids complexos para dashboards e animações suaves sem sair do arquivo `.tsx`.
+- **Design Systems / Bibliotecas:** Uso de ferramentas *headless* como Radix UI ou componentes do Shadcn/ui para montar modais, popovers e menus suspensos com acessibilidade nativa, acelerando a entrega.
+
+**Segurança no Lado do Cliente:**
+
+- **Gestão de Sessão:** Consumir e lidar adequadamente com cookies HttpOnly (o front-end envia requisições `withCredentials`, sem acessar o token via JavaScript).
+- **Prevenção a XSS (Cross-Site Scripting):** Sanitização de dados injetados na tela e os perigos do `dangerouslySetInnerHTML`.
+
+**Testes, Documentação e Qualidade:**
+
+- **Testes de Componente:** Usar **Vitest + React Testing Library** para simular cliques de usuários, preenchimento de inputs e verificar se a interface reage corretamente aos erros da API.
+- **Documentação Visual:** Organização dos componentes em pastas estruturadas. Para projetos escaláveis, noções de **Storybook** para documentar botões, inputs e cores da aplicação de forma independente da lógica.
+
+**Build, Performance e Infraestrutura de Front:**
+
+- **Bundlers:** Entender como o Vite compila e minifica o código para produção.
+- **Next.js e Renderização:** Diferença entre CSR (Client-Side Rendering, ideal para painéis administrativos), SSR (Server-Side Rendering) e SSG (Static Site Generation, ideal para a landing page pública de conversão de academias ou arenas).
+- **Otimização:** Lazy loading de imagens e componentes pesados (como players de vídeo esportivo), dividindo o código em partes menores (Code Splitting).
+
+**Extras (Interatividade Avançada):**
+
+- **WebSockets no Front:** Conectar via `Socket.io-client` para captar eventos em tempo real e atualizar placares na tela sem precisar dar "F5".
+- **Manipulação de Mídia:** Uso de APIs nativas ou bibliotecas para controle customizado de players de vídeo (volume, fullscreen, progresso).
+- **Observabilidade de Interface:** Integração com Sentry para registrar na nuvem os erros invisíveis que ocorrem nos navegadores dos usuários, permitindo debugar falhas que você não viu no ambiente de desenvolvimento.
