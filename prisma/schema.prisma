@@ -11,6 +11,7 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
 enum Role {
   MATRIX
   CONSULTOR
@@ -18,14 +19,14 @@ enum Role {
   EMPLOYEE
 }
 
-model User{
-  id String @id @default(uuid())
-  name String 
-  email String @unique
-  password String //Bcrupts será usado aqui
-  role Role @default(FRANCHISEE)
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String //Bcrupts será usado aqui
+  role      Role     @default(FRANCHISEE)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
- @@map("users") //map define como a tabela será chamada
+  @@map("users") //map define como a tabela será chamada
 }
