@@ -16,7 +16,7 @@
     ``criação do app, server(listen)``
 
     5.1 Middlewares de segurança halmet, cors, rate-limit global
-    5.2 Pino (pino-pretty) para logs de aplicação
+    5.2 Pino (pino-pretty e pino destionation) para logs de aplicação exibidos no terminal e salvos em arquivo de logs
     5.3 Midlleware de erros global
-    ```Middleware ErrorHandler e class AppError``
+    ``Middleware ErrorHandler e class AppError``
 

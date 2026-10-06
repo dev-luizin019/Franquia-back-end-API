@@ -1,23 +1,32 @@
 # Sitema para gestão de Franquia
 
-Sistema que centraliza o controle e gestão de toda uma franquia de lojoas
+Sistema que centraliza o controle e gestão de toda uma franquia de lojoas (API-central)
 
-## funcionalidades
-- Recurso 1: Descrição curta do recurso.
-- Recurso 2: Descrição curta do recurso.
-- Recurso 3: Descrição curta do recurso.
+## Funcionalidades
+- Recurso 1: Login dos usuarios, com autenticação e validação por papel(role).
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
-- [NodeJs, express](https://site.com) - Versão X.Y
+* **Linguagem:** Node.js (via Docker) com TypeScript
+* **Arquitetura:** Monolítica Modular com Cmadas Internas
+* **Modularização:** Por contexto de negócio
+* **Camadas:** Por responsabilidades
+* **Framework:** Express.js
+* **Banco de Dados:** PostgreSQL (via Docker)
+* **ORM:** Prisma
+* **Validação:** Zod
+* **Logs & Tratamento de Erros:** Pino e AppError customizado
 
-## 📦 Como Instalar e Rodar
+## Pré-requisitos
+* Docker e Docker Compose instalados
+
+## Como Instalar e Rodar o Projeto
 
 Siga os passos abaixo para executar o projeto em sua máquina local:
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com
+   git clone https://github.com/dev-luizin019/Franquia-brack-end-.git
    ```
 
 2. Entre na pasta do projeto:
@@ -30,7 +39,7 @@ Siga os passos abaixo para executar o projeto em sua máquina local:
    npm install
    ```
 
-4.1 Inicie o projeto:
+4.1 Inicie o projeto(se tiver NodeJs e Postgres com o banco):
    ```bash
    npm run dev
    ```
@@ -48,21 +57,26 @@ ou
    ```bash
    docker compose down
    ```
+    4.2.4. Aplicar migrations ():
+   ```bash
+   npx prisma migrate deploy
+   ```
+   ou apenas para aplicar apenas novas tabelas
+   ```bash
+   npx prisma migrate dev 
+   ```
 
-## 💡 Como Usar
+## Como Usar
 
 Explique brevemente como interagir com o sistema:
 - Acesse `http://localhost:3000` no navegador.
-- Utilize o login padrão: `admin@email.com` / `senha123`.
+- Acesse `http://localhost:3000/login` para login.
+- Utilize o login padrão: `[colocar_email]` / `[colocar_password]`.
 
-## 🤝 Como Contribuir
+## Como Contribuir
 
 1. Faça um Fork do projeto.
 2. Crie uma branch para sua Feature (`git checkout -b feature/NovaFeature`).
 3. Faça o commit das alterações (`git commit -m 'Adiciona nova feature'`).
 4. Faça o Push para a Branch (`git push origin feature/NovaFeature`).
 5. Abra um Pull Request.
-
-## 📝 Licença
-
-Distribuído sob a licença [MIT](https://opensource.org). Veja `LICENSE` para mais informações.

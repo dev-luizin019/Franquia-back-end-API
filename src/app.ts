@@ -7,6 +7,10 @@ import { globalRateLimit } from "./shared/utils/globalRateLImit";
 import errorHandler from "./shared/middlewares/errorHandler";
 import { logger } from "./shared/utils/logger";
 import { pinoHttp } from "pino-http";
+import { setupSwagger } from "./config/swagger";
+// importação de TODOS os *.docs.ts ANTES de chamar setupSwagger
+import './modules/index.docs'
+
 const app = express();
 
 app.use(helmet());
@@ -27,7 +31,10 @@ app.use(globalRateLimit);
 
 app.use(express.json());
 
-app.use("/api", routes);
 
+app.use("/api/v1", routes);
+
+
+setupSwagger(app)
 app.use(errorHandler);
 export default app;
